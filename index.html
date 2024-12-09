@@ -11,6 +11,18 @@
             background-color: #ffebf0;
             text-align: center;
             margin-top: 50px;
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
         #showWindows {
@@ -22,25 +34,121 @@
             cursor: pointer;
             border-radius: 15px;
             transition: background-color 0.3s ease;
+            opacity: 0;
+            animation: fadeInButton 5s forwards;
+            animation-delay: 5s;
         }
 
         #showWindows:hover {
             background-color: #ff7eb3;
         }
+
+        @keyframes fadeInButton {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+        }
+
+        .heart-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background-image: url('https://cdn.pixabay.com/animation/2022/07/30/10/38/10-38-40-340_512.gif');
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: heartbeat 1s infinite;
+            z-index: -1;
+        }
+
+        @keyframes heartbeat {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        .typing-effect {
+            display: inline-block;
+            white-space: nowrap;
+            border-right: 2px solid #333;
+            font-size: 36px;
+            color: #333;
+        }
     </style>
 </head>
 
 <body>
-    <h1>Anh có điều muốn nói với iem ~~</h1>
+    <h1>
+        <span id="typed-text" class="typing-effect"></span>
+    </h1>
     <br>
     <button id="showWindows">Bấm vào đây xem</button>
 
+    <div class="heart-effect"></div>
+
     <script>
+        // Dữ liệu các câu cần gõ
+        const texts = ["Anh có điều muốn nói với iem ~~", "Muốn biết thì bấm nút ở dưới nhen ❤️"];
+        let textIndex = 0;
+        let charIndex = 0;
+        const typedTextElement = document.getElementById('typed-text');
+
+        function type() {
+            if (charIndex < texts[textIndex].length) {
+                typedTextElement.textContent += texts[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 100); // Điều chỉnh thời gian giữa các ký tự (100ms)
+            } else {
+                setTimeout(function () {
+                    erase(); // Gọi hàm xóa sau khi đã gõ xong
+                }, 500); // Đợi 1 giây trước khi bắt đầu xóa
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typedTextElement.textContent = texts[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, 100); // Điều chỉnh thời gian xóa (100ms)
+            } else {
+                // Sau khi xóa hết, chuyển sang câu tiếp theo
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(type, 500); // Đợi một chút rồi gõ câu tiếp theo
+            }
+        }
+
+        // Bắt đầu gõ chữ khi trang được tải
+        window.onload = type;
+
+        // Mã JavaScript cho nút mở cửa sổ
         document.getElementById('showWindows').addEventListener('click', function () {
             let windowCount = 0;
             const maxWindows = 30;
             const windowWidth = 400;
             const windowHeight = 300;
+            const windowsArray = [];
 
             const interval = setInterval(() => {
                 if (windowCount < maxWindows) {
@@ -52,32 +160,43 @@
                     if (newWindow) {
                         newWindow.document.write(`
                             <h1 style="
-    font-size: 40px; 
-    text-align: center; 
-    padding: 30px; 
-    background: linear-gradient(135deg, #ff758c, #ff7eb3); 
-    border-radius: 30px; 
-    color: white; 
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
-    transform: rotate(-2deg);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: bold;
-    animation: glow 1.5s infinite alternate;
-    font-family: 'Arial', sans-serif;">
-    Tràn bộ nhớ nhớ nhớ em ❤️
-</h1>
-
-
+                            font-size: 40px; 
+                            text-align: center; 
+                            padding: 30px; 
+                            background: linear-gradient(135deg, #ff758c, #ff7eb3); 
+                            border-radius: 30px; 
+                            color: white; 
+                            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+                            transform: rotate(-2deg);
+                            text-transform: uppercase;
+                            letter-spacing: 2px;
+                            font-weight: bold;
+                            animation: glow 1.5s infinite alternate;
+                            font-family: 'Arial', sans-serif;">
+                            Tràn bộ nhớ nhớ nhớ em ❤️
+                        </h1>
                         `);
                         newWindow.document.close();
+                        windowsArray.push(newWindow);
                     }
 
                     windowCount++;
                 } else {
                     clearInterval(interval);
+                    let closeCount = 0;
+                    const closeInterval = setInterval(() => {
+                        if (closeCount < windowsArray.length) {
+                            const windowToClose = windowsArray[closeCount];
+                            if (windowToClose) {
+                                windowToClose.close();
+                            }
+                            closeCount++;
+                        } else {
+                            clearInterval(closeInterval);
+                        }
+                    }, 200);
                 }
-            }, 500);
+            }, 400);
         });
     </script>
 </body>

@@ -15,36 +15,34 @@
 
     <script>
         document.getElementById('showWindows').addEventListener('click', function () {
-            let windowCount = 0;
-            const maxWindows = 10; // Số tab tối đa
-            const openTabs = []; // Lưu trữ các tab đã mở để tránh tràn bộ nhớ
+            let windowCount = 0;  
+            const maxWindows = 15; 
+            const windowWidth = 300; // Kích thước nhỏ hơn cho phù hợp cả trên điện thoại
+            const windowHeight = 200; 
 
             const interval = setInterval(() => {
                 if (windowCount < maxWindows) {
-                    // Mở tab mới
-                    const newTab = window.open('', '_blank');
+                    // Tạo vị trí ngẫu nhiên trên màn hình khả dụng
+                    const leftPosition = Math.floor(Math.random() * (screen.availWidth - windowWidth));
+                    const topPosition = Math.floor(Math.random() * (screen.availHeight - windowHeight));
 
-                    if (newTab) {
-                        openTabs.push(newTab); // Lưu tab để sau này có thể quản lý
-                        newTab.document.write(`
+                    // Mở cửa sổ tại vị trí ngẫu nhiên
+                    const newWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},left=${leftPosition},top=${topPosition}`);
+                    if (newWindow) {
+                        newWindow.document.write(`
                             <h1>Tràn bộ nhớ nhớ nhớ em :v</h1>
                         `);
-                        newTab.document.close();
+                        newWindow.document.close();
                     } else {
-                        alert('Trình duyệt đang chặn popup/tab. Vui lòng bật popup để trải nghiệm!');
+                        alert("Trình duyệt đang chặn popup. Vui lòng bật để trải nghiệm!");
                         clearInterval(interval);
                         return;
                     }
                     windowCount++;
                 } else {
                     clearInterval(interval);
-
-                    // Tự động đóng tất cả các tab sau 10 giây
-                    setTimeout(() => {
-                        openTabs.forEach(tab => tab.close());
-                    }, 10000);
                 }
-            }, 1000); // Mở tab mỗi giây
+            }, 1000); 
         });
     </script>
 </body>

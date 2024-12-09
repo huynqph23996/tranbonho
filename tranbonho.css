@@ -1,0 +1,40 @@
+/* Đặt nền và kiểu chữ cho body */
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    background-color: #ffc0cb; /* Màu nền hồng pastel */
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px #000;
+}
+
+/* Custom cho button */
+button {
+    padding: 15px 30px; /* Tăng kích thước nút */
+    font-size: 20px; /* Kích thước chữ */
+    background-color: #ff6b81; /* Màu nền đỏ hồng */
+    color: #fff; /* Màu chữ trắng */
+    border: none; /* Không viền */
+    border-radius: 50px; /* Làm bo tròn các góc */
+    cursor: pointer; /* Khi di chuột qua sẽ có con trỏ tay */
+    transition: all 0.3s ease; /* Thêm hiệu ứng chuyển động */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng cho nút */
+}
+
+/* Hiệu ứng khi di chuột qua button */
+button:hover {
+    background-color: #ff4c69; /* Màu nền khi hover */
+    transform: translateY(-5px); /* Đẩy nút lên khi hover */
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); /* Tăng độ đổ bóng */
+}
+
+/* Hiệu ứng khi click vào button */
+button:active {
+    transform: translateY(2px); /* Nút sẽ hạ xuống khi nhấn */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Giảm độ đổ bóng */
+}

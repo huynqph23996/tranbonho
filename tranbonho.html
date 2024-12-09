@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tràn bộ Nhớ</title>
+    <link rel="stylesheet" href="tranbonho.css">
+</head>
+
+<body>
+    <h1>Anh có điều muốn nói với iem</h1>
+    <br> 
+    <button id="showWindows">Bấm vào đây xem</button>
+
+    <script>
+        // JavaScript để mở cửa sổ ngẫu nhiên
+        document.getElementById('showWindows').addEventListener('click', function () {
+            let windowCount = 0;  
+            const maxWindows = 15; 
+            const windowWidth = 400; 
+            const windowHeight = 300; 
+
+            const interval = setInterval(() => {
+                if (windowCount < maxWindows) {
+                    // Tạo vị trí ngẫu nhiên trên màn hình
+                    const leftPosition = Math.floor(Math.random() * (window.innerWidth - windowWidth));
+                    const topPosition = Math.floor(Math.random() * (window.innerHeight - windowHeight));
+
+                    // Mở cửa sổ tại vị trí ngẫu nhiên
+                    const newWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},left=${leftPosition},top=${topPosition}`);
+                    if (newWindow) {
+                        newWindow.document.write(`
+                           
+                                <h1>Tràn bộ nhớ nhớ nhớ em :v </h1>
+                            
+                        `);
+                        newWindow.document.close();
+                    }
+                    windowCount++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 1000); 
+        });
+
+    </script>
+</body>
+
+</html>

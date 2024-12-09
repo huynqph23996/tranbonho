@@ -5,45 +5,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tràn bộ Nhớ</title>
-    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffebf0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #showWindows {
+            background-color: #ff758c;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        #showWindows:hover {
+            background-color: #ff7eb3;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Anh có điều muốn nói với iem</h1>
-    <br> 
+    <h1>Anh có điều muốn nói với iem ~~</h1>
+    <br>
     <button id="showWindows">Bấm vào đây xem</button>
 
     <script>
-        // JavaScript để mở cửa sổ ngẫu nhiên
         document.getElementById('showWindows').addEventListener('click', function () {
-            let windowCount = 0;  
-            const maxWindows = 15; 
-            const windowWidth = 400; 
-            const windowHeight = 300; 
+            let windowCount = 0;
+            const maxWindows = 15;
+            const windowWidth = 400;
+            const windowHeight = 300;
 
             const interval = setInterval(() => {
                 if (windowCount < maxWindows) {
-                    // Tạo vị trí ngẫu nhiên trên màn hình
                     const leftPosition = Math.floor(Math.random() * (window.innerWidth - windowWidth));
                     const topPosition = Math.floor(Math.random() * (window.innerHeight - windowHeight));
 
-                    // Mở cửa sổ tại vị trí ngẫu nhiên
                     const newWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},left=${leftPosition},top=${topPosition}`);
+
                     if (newWindow) {
                         newWindow.document.write(`
-                           
-                                <h1>Tràn bộ nhớ nhớ nhớ em :v </h1>
-                            
+                            <h1 style="
+    font-size: 40px; 
+    text-align: center; 
+    padding: 30px; 
+    background: linear-gradient(135deg, #ff758c, #ff7eb3); 
+    border-radius: 30px; 
+    color: white; 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+    transform: rotate(-2deg);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    animation: glow 1.5s infinite alternate;
+    font-family: 'Arial', sans-serif;">
+    Tràn bộ nhớ nhớ nhớ em ❤️
+</h1>
+
+
                         `);
                         newWindow.document.close();
                     }
+
                     windowCount++;
                 } else {
                     clearInterval(interval);
                 }
-            }, 1000); 
+            }, 500);
         });
-
     </script>
 </body>
 

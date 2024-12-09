@@ -38,3 +38,13 @@ button:active {
     transform: translateY(2px); /* Nút sẽ hạ xuống khi nhấn */
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Giảm độ đổ bóng */
 }
+.custom-heading {
+    font-size: 24px;
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.4); /* Màu nền trong suốt nhẹ */
+    border-radius: 15px; /* Bo tròn góc */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Đổ bóng */
+    color: white; /* Màu chữ */
+    font-family: 'Arial', sans-serif; /* Font chữ */
+}

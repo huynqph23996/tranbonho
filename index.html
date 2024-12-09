@@ -10,32 +10,33 @@
 
 <body>
     <h1>Anh có điều muốn nói với iem</h1>
-    <br> 
+    <br>
     <button id="showWindows">Bấm vào đây xem</button>
 
     <script>
-        // JavaScript để mở cửa sổ ngẫu nhiên
         document.getElementById('showWindows').addEventListener('click', function () {
             let windowCount = 0;  
             const maxWindows = 15; 
-            const windowWidth = 400; 
-            const windowHeight = 300; 
+            const windowWidth = 300; // Kích thước nhỏ hơn cho phù hợp cả trên điện thoại
+            const windowHeight = 200; 
 
             const interval = setInterval(() => {
                 if (windowCount < maxWindows) {
-                    // Tạo vị trí ngẫu nhiên trên màn hình
-                    const leftPosition = Math.floor(Math.random() * (window.innerWidth - windowWidth));
-                    const topPosition = Math.floor(Math.random() * (window.innerHeight - windowHeight));
+                    // Tạo vị trí ngẫu nhiên trên màn hình khả dụng
+                    const leftPosition = Math.floor(Math.random() * (screen.availWidth - windowWidth));
+                    const topPosition = Math.floor(Math.random() * (screen.availHeight - windowHeight));
 
                     // Mở cửa sổ tại vị trí ngẫu nhiên
                     const newWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},left=${leftPosition},top=${topPosition}`);
                     if (newWindow) {
                         newWindow.document.write(`
-                           
-                                <h1>Tràn bộ nhớ nhớ nhớ em :v </h1>
-                            
+                            <h1>Tràn bộ nhớ nhớ nhớ em :v</h1>
                         `);
                         newWindow.document.close();
+                    } else {
+                        alert("Trình duyệt đang chặn popup. Vui lòng bật để trải nghiệm!");
+                        clearInterval(interval);
+                        return;
                     }
                     windowCount++;
                 } else {
@@ -43,7 +44,6 @@
                 }
             }, 1000); 
         });
-
     </script>
 </body>
 
